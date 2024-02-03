@@ -1,9 +1,9 @@
-# Requisitos
+# 🖥️ Requisitos
 
 - Node.js 20 ou superior
 - Expo
 
-# Como rodar o projeto
+# 🎡 Como rodar o projeto
 
 ### Faça o clone do projeto
 ```

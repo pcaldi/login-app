@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './styles';
@@ -26,6 +26,30 @@ export function Home() {
     navigation.navigate('recoverPassword');
   }
 
+
+  async function handleLoginSubmit() {
+    const req = await fetch('http://192.168.0.102:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const result = await req.json();
+    //console.log(result)
+
+    if (result.error) {
+      Alert.alert("", result.message);
+    } else {
+      Alert.alert("", result.message);
+    }
+
+  }
+
   return (
     <View style={styles.container}>
       <Image style={{ marginBottom: 36 }} source={require('@/assets/logo3.png')} />
@@ -41,10 +65,11 @@ export function Home() {
       <Input
         placeholder='Senha'
         secureTextEntry={true}
+        autoCorrect={false}
         value={password}
         onChangeText={setPassword}
       />
-      <Button title='Acessar' />
+      <Button title='Acessar' onPress={handleLoginSubmit} />
 
       <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleNewUserScreen}>
         <Text style={styles.title}>Cadastrar</Text>
