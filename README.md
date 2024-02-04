@@ -30,3 +30,7 @@ npx expo install react-native-screens react-native-safe-area-context
 ```
 npm i axios
 ```
+### Dependência para Validação
+```
+npm i yup
+```
