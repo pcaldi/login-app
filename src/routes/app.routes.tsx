@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Home } from '@/screen/home';
+import { Login } from '@/screen/login';
 import { NewUser } from '@/screen/newUser';
 import { RecoverPassword } from '@/screen/recoverPassword';
 
@@ -10,7 +10,7 @@ export function AppRoutes() {
   return (
     /* Carregar as Screens */
     <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="home" component={Home} />
+      <Screen name="login" component={Login} />
       <Screen name="newUser" component={NewUser} />
       <Screen name="recoverPassword" component={RecoverPassword} />
     </Navigator>

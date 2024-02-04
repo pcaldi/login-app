@@ -5,10 +5,12 @@ import { Button } from '@/components/Button';
 
 export function NewUser() {
 
+  // Navega entre as telas
   const navigation = useNavigation();
 
+  // Função que leva a tela login
   function handleLoginScreen() {
-    navigation.navigate('home');
+    navigation.navigate('login');
   }
 
   return (

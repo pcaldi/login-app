@@ -3,7 +3,7 @@ export declare global {
     interface RootParamList {
       newUser: undefined;
       recoverPassword: undefined;
-      home: undefined;
+      login: undefined;
 
     }
   }

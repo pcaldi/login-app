@@ -11,7 +11,7 @@ import { Input } from '@/components/Input';
 import api from '@/services/api';
 
 
-export function Home() {
+export function Login() {
   // Armazenar informações do usuário
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
