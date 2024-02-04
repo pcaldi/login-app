@@ -26,3 +26,7 @@ npm install @react-navigation/native @react-navigation/native-stack
 npx expo install react-native-screens react-native-safe-area-context
 
 ```
+### Dependência para realizar chamadas na API
+```
+npm i axios
+```
