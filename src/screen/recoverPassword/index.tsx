@@ -8,7 +8,7 @@ export function RecoverPassword() {
   const navigation = useNavigation();
 
   function handleLoginScreen() {
-    navigation.navigate('home');
+    navigation.navigate('login');
   }
 
   return (
