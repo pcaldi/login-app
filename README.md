@@ -43,3 +43,8 @@ npm i yup
 ```
 npm install --save react-native-toast-message
 ```
+
+### Dependência para armazenar dados no dispositivo
+```
+npx expo install @react-native-async-storage/async-storage
+```
