@@ -1,14 +1,20 @@
+// Armazenar estados
 import { useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
 // Feedback visual ao usuário
 import Toast from 'react-native-toast-message'
+
 // Validar os dados do formulário
 import * as yup from 'yup';
 
+// Navega entre as telas
 import { useNavigation } from '@react-navigation/native';
 
+// Estilos dos componentes
 import { styles } from './styles';
 
+// Componentes
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
@@ -17,7 +23,7 @@ import api from '@/services/api';
 
 
 export function NewUser() {
-  // Armazenar informações do usuário
+  // Armazenar informações nos estados/State
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
