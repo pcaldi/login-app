@@ -23,12 +23,14 @@ import { Input } from '@/components/Input';
 
 // Arquivo com configurações da API
 import api from '@/services/api';
+import { Loading } from '@/components/Loading';
 
 
 export function Login() {
   // Armazenar informações nos estados/State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Navegar entre as telas
   const navigation = useNavigation();
@@ -48,6 +50,10 @@ export function Login() {
 
     // Utilizo o try/catch para gerenciar exceção/erro
     try { // Permanece no try se não houver nenhum erro
+
+      // Alterar para TRUE e apresentar o loading
+      setLoading(true);
+
 
       // Validar o formulário com YUP
       await validateSchema.validate(
@@ -113,7 +119,7 @@ export function Login() {
           });
 
         }
-      });
+      })
     } catch (error) { // Acesso o catch quando houver erro no try
 
       if (error instanceof yup.ValidationError) { // Acessa o IF quando existir a mensagem de erro
@@ -141,6 +147,10 @@ export function Login() {
         });
 
       }
+    } finally {
+
+      // Alterar para false e ocultar loading
+      setLoading(false);
     }
 
   }
@@ -167,6 +177,7 @@ export function Login() {
           autoCapitalize='none'
           autoCorrect={false}
           returnKeyType='next'
+          editable={!loading}
           value={email}
           onChangeText={text => setEmail(text)}
         />
@@ -176,12 +187,13 @@ export function Login() {
           placeholder='Senha'
           secureTextEntry={true}
           autoCorrect={false}
+          editable={!loading}
           value={password}
           onChangeText={setPassword}
         />
 
         {/* Botão de Submit/Acessar enviar os dados do formulário */}
-        <Button title='Acessar' onPress={handleLoginSubmit} />
+        <Button title='Acessar' disabled={loading} onPress={handleLoginSubmit} />
 
         {/* Link para acessar a tela/rota de cadastrar novo usuário */}
         <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleNewUserScreen}>
@@ -194,6 +206,10 @@ export function Login() {
           <Text style={styles.title}>Recuperar Senha</Text>
         </TouchableOpacity>
 
+        {
+          loading &&
+          <Loading />
+        }
       </View>
     </ScrollView>
   );

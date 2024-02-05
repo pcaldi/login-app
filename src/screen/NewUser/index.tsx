@@ -20,6 +20,7 @@ import { Input } from '@/components/Input';
 
 // Arquivo com configurações da API
 import api from '@/services/api';
+import { Loading } from '@/components/Loading';
 
 
 export function NewUser() {
@@ -27,6 +28,7 @@ export function NewUser() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Navega entre as telas
   const navigation = useNavigation();
@@ -41,6 +43,9 @@ export function NewUser() {
 
     // Utilizo o try/catch para gerenciar exceção/erro
     try { // Permanece no try se não houver nenhum erro
+
+      // Alterar para TRUE e apresentar o loading
+      setLoading(true);
 
       // Validar o formulário com YUP
       await validateSchema.validate(
@@ -122,6 +127,8 @@ export function NewUser() {
         });
 
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -149,6 +156,7 @@ export function NewUser() {
           placeholder='Nome completo'
           returnKeyType='next'
           value={name}
+          editable={!loading}
           onChangeText={setName}
         />
 
@@ -160,6 +168,7 @@ export function NewUser() {
           autoCorrect={false}
           returnKeyType='next'
           value={email}
+          editable={!loading}
           onChangeText={setEmail}
         />
 
@@ -169,11 +178,12 @@ export function NewUser() {
           secureTextEntry={true}
           autoCorrect={false}
           value={password}
+          editable={!loading}
           onChangeText={setPassword}
         />
 
         {/* Botão de Submit/Cadastrar enviar os dados  do formulário */}
-        <Button title='Cadastrar' onPress={handleAddNewUser} />
+        <Button title='Cadastrar' disabled={loading} onPress={handleAddNewUser} />
 
         {/* Link para acessar a tela/rota login */}
         <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleLoginScreen}>
@@ -181,6 +191,10 @@ export function NewUser() {
         </TouchableOpacity>
 
       </View>
+      {
+        loading &&
+        <Loading />
+      }
     </ScrollView>
   );
 
