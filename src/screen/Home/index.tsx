@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+
+
 // Navegar entre telas
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,6 +15,7 @@ import { styles } from './styles';
 
 // Componentes
 import { Button } from '@/components/Button';
+import { Header } from '@/components/Header';
 
 
 export function Home() {
@@ -45,11 +48,15 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-      <Text style={styles.text}>Name: {name}</Text>
-      <Text style={styles.text}>E-mail: {email}</Text>
-      <Text style={styles.text}>@Token: {token}</Text>
-      <Button title='Login' onPress={handleLoginScreen} />
+      <Header title='Home' onPress={handleLoginScreen} />
+
+
+      <View style={styles.content}>
+        <Text style={styles.text}>Name: {name}</Text>
+        <Text style={styles.text}>E-mail: {email}</Text>
+        <Text style={styles.text}>@Token: {token}</Text>
+        <Button title='Login' onPress={handleLoginScreen} />
+      </View>
     </View>
   );
 }
