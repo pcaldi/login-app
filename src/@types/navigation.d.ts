@@ -4,6 +4,7 @@ export declare global {
       newUser: undefined;
       recoverPassword: undefined;
       login: undefined;
+      home: undefined;
 
     }
   }
