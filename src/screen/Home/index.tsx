@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-
-
 // Navegar entre telas
 import { useNavigation } from '@react-navigation/native';
 
 // Incluir AsyncStorage para armazenar dados no dispositivo
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getValToken } from '@/services/auth';
 
 import { Text, View } from 'react-native';
 
@@ -14,8 +14,8 @@ import { Text, View } from 'react-native';
 import { styles } from './styles';
 
 // Componentes
-import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
+import Toast from 'react-native-toast-message';
 
 
 export function Home() {
@@ -34,12 +34,43 @@ export function Home() {
 
   // Recuperar o valor que esta no AsyncStorage
   const getValue = async () => {
-    const valueToken = await AsyncStorage.getItem('@token');
-    const valueName = await AsyncStorage.getItem('@name');
-    const valueEmail = await AsyncStorage.getItem('@email');
-    setToken(valueToken);
-    setName(valueName);
-    setEmail(valueEmail);
+
+    try {
+      const valToken = await getValToken();
+
+      if (valToken === null) {
+        Toast.show({
+          type: 'error',
+          text1: 'Ops',
+          text2: 'Erro: Necessário realizar o login para acessar a página.',
+          text2Style: {
+            fontSize: 11
+          }
+        });
+        // Redirecionar para tela de login
+        navigation.navigate('login');
+      } else {
+
+        const valName = await AsyncStorage.getItem('@name');
+        const valEmail = await AsyncStorage.getItem('@email');
+        setToken(valToken);
+        setName(valName);
+        setEmail(valEmail);
+      }
+
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Ops',
+        text2: 'Erro: Necessário realizar o login para acessar a página.',
+        text2Style: {
+          fontSize: 11
+        }
+      });
+      // Redirecionar para tela de login
+      navigation.navigate('login');
+    }
+
   }
 
   useEffect(() => {
@@ -48,14 +79,13 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <Header title='Home' onPress={handleLoginScreen} />
+      <Header title='Home' IconName='logout' onPress={handleLoginScreen} />
 
 
       <View style={styles.content}>
         <Text style={styles.text}>Name: {name}</Text>
         <Text style={styles.text}>E-mail: {email}</Text>
         <Text style={styles.text}>@Token: {token}</Text>
-        <Button title='Login' onPress={handleLoginScreen} />
       </View>
     </View>
   );

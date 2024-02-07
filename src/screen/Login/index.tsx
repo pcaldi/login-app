@@ -45,6 +45,12 @@ export function Login() {
     navigation.navigate('recoverPassword');
   }
 
+
+  // Função que leva a rota recoverPassword
+  function handleHomeScreen() {
+    navigation.navigate('home');
+  }
+
   // Função que submete o login
   async function handleLoginSubmit() {
 
@@ -204,6 +210,11 @@ export function Login() {
         {/* Link para acessar a tela/rota de recuperar senha do usuário */}
         <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleRecoverPasswordScreen}>
           <Text style={styles.title}>Recuperar Senha</Text>
+        </TouchableOpacity>
+
+        {/* Link para acessar a tela/rota de home */}
+        <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleHomeScreen}>
+          <Text style={styles.title}>Home</Text>
         </TouchableOpacity>
 
         {
