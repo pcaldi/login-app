@@ -57,7 +57,7 @@ export function NewUser() {
         name,
         email,
         password,
-      }).then((response) => {
+      }).then((response) => { // Acesso o then quando a API retornar o status de sucesso.
 
         Toast.show({
           type: 'success',
@@ -68,7 +68,7 @@ export function NewUser() {
         })
 
         //Alert.alert('Sucesso', response.data.message.toString());
-      }).catch((error) => {
+      }).catch((error) => { // Acesso o then quando a API retornar o status de erro.
 
         Toast.show({
           type: 'error',
