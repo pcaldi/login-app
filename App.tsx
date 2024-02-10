@@ -2,7 +2,7 @@ import { View, StatusBar } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 
-import { Routes } from '@/routes';
+import { Routes } from '@/routes/';
 
 export default function App() {
   return (
