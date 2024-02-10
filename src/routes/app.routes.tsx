@@ -1,20 +1,78 @@
+// Adiciona estado para o componente
+import { useEffect, useMemo, useState } from 'react';
+
+// Gerencia a navegação, atua como container na pilha de telas
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+// AsyncStorage armazena dados no dispositivo
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Função para validar o token
+import { getValToken } from '@/services/auth';
+
+// Telas
 import { Login } from '@/screen/Login';
 import { NewUser } from '@/screen/NewUser';
 import { RecoverPassword } from '@/screen/RecoverPassword';
 import { Home } from '@/screen/Home';
+import { AuthContext } from '@/context/authContext';
 
+// Configuração e gestão da  navegação entre telas
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {
+
+  // Armazenar as informações do usuário
+  const [userToken, setUserToken] = useState<string | null>(null);
+
+  // useMemo - memoriza o componente e só executa se tiver o token alterado.
+  const authContext = useMemo(() => {
+    return {
+      // Função signIn será exportada para outras telas
+      signIn: async () => {
+        const valToken = await AsyncStorage.getItem('@token')
+        setUserToken(valToken);
+      }
+    }
+  }, []);
+
+  const getToken = async () => {
+    try {
+      const valToken = await getValToken()
+
+      if (valToken !== null) {
+        setUserToken(valToken);
+      } else {
+        setUserToken(null);
+      }
+
+    } catch (error) {
+      setUserToken(null);
+    }
+  }
+
+  useEffect(() => {
+    getToken()
+  }, [])
+
   return (
-    /* Carregar as Screens */
-    <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="login" component={Login} />
-      <Screen name="newUser" component={NewUser} />
-      <Screen name="recoverPassword" component={RecoverPassword} />
-      <Screen name="home" component={Home} />
-    </Navigator>
+    // Compartilhar o context de login com as telas
+    <AuthContext.Provider value={authContext} >
+      {/* /* Carregar as Screens */}
+
+      {userToken ? (
+        <Navigator screenOptions={{ headerShown: false }}>
+          <Screen name="home" component={Home} />
+        </Navigator>
+      ) : (
+        <Navigator screenOptions={{ headerShown: false }}>
+          <Screen name="login" component={Login} />
+          <Screen name="newUser" component={NewUser} />
+          <Screen name="recoverPassword" component={RecoverPassword} />
+
+        </Navigator>)}
+
+    </AuthContext.Provider>
   )
 }

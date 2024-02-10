@@ -1,6 +1,10 @@
-// Armazenar estados
-import { useState } from 'react';
+// useState - Armazenar estados
+// useContext - Compartilhar dados entre as telas
+import { useContext, useState } from 'react';
+
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+import { AuthContext } from '@/context/authContext';
 
 // Navegar entre telas
 import { useNavigation } from '@react-navigation/native';
@@ -26,11 +30,15 @@ import api from '@/services/api';
 import { Loading } from '@/components/Loading';
 
 
+
 export function Login() {
   // Armazenar informações nos estados/State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Recuperar a função signIn do context
+  const { signIn } = useContext(AuthContext)
 
   // Navegar entre as telas
   const navigation = useNavigation();
@@ -46,10 +54,6 @@ export function Login() {
   }
 
 
-  // Função que leva a rota recoverPassword
-  function handleHomeScreen() {
-    navigation.navigate('home');
-  }
 
   // Função que submete o login
   async function handleLoginSubmit() {
@@ -60,7 +64,6 @@ export function Login() {
       // Alterar para TRUE e apresentar o loading
       setLoading(true);
 
-
       // Validar o formulário com YUP
       await validateSchema.validate(
         { email, password }, { abortEarly: false }
@@ -70,7 +73,7 @@ export function Login() {
       await api.post('/login', {
         email,
         password,
-      }).then((response) => {
+      }).then((response) => { // Acesso o then quando a API retornar o status de sucesso.
         //console.log(response.data);
 
         // Salvar/Setar os dados no AsyncStorage
@@ -78,19 +81,13 @@ export function Login() {
         AsyncStorage.setItem('@name', response.data.user.name);
         AsyncStorage.setItem('@email', response.data.user.email);
 
-        // Navegar para a página Home
-        navigation.navigate('home')
+        //Navegar para a página Home
+        //navigation.navigate('home')
 
-        // Feedback visual ao usuário
-        /* Toast.show({
-          type: 'success',
-          text1: 'Usuário cadastrado com sucesso',
-          text2: response.data.message.toString(),
-          text2Style: {
-            fontSize: 12
-          }
-        }) */
-      }).catch((error) => {
+        // Chamar a função que está no memo e no context
+        signIn();
+
+      }).catch((error) => { // Acesso o then quando a API retornar o status de erro.
         //console.log(error.response.data.message.toString());
 
         // Feedback visual ao usuário
@@ -212,10 +209,6 @@ export function Login() {
           <Text style={styles.title}>Recuperar Senha</Text>
         </TouchableOpacity>
 
-        {/* Link para acessar a tela/rota de home */}
-        <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleHomeScreen}>
-          <Text style={styles.title}>Home</Text>
-        </TouchableOpacity>
 
         {
           loading &&
