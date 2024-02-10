@@ -4,11 +4,9 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-
     flexDirection: 'row',
     marginTop: 54,
     padding: 8,
-    marginLeft: 12,
     justifyContent: 'space-between',
     alignItems: 'center',
 
@@ -17,7 +15,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#6c7fd8',
     borderRadius: 999,
     padding: 10,
-
 
     alignItems: 'center',
     justifyContent: 'center',
