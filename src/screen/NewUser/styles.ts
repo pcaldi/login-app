@@ -8,12 +8,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  titleBtn: {
-    marginTop: 12,
-  },
-  title: {
-    fontSize: 14,
-    color: '#CECECE',
-    textDecorationLine: 'underline',
-  }
 });
