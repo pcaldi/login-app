@@ -5,19 +5,20 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 // Para pegar/tipar todos os items que tem na biblioteca
 export type IconNameType = keyof typeof MaterialCommunityIcons.glyphMap
 
+/* Passo a tipagem para o componente, com todas as propriedades do TouchableOpacityProps
+com o Spread Operator {..rest} */
 interface HeaderProps extends TouchableOpacityProps {
   title: string;
-  onPress?: () => void;
-  IconName: IconNameType;
+  IconName?: IconNameType;
 }
 
-export function Header({ title, onPress, IconName, ...rest }: HeaderProps) {
+export function Header({ title, IconName, ...rest }: HeaderProps) {
   return (
 
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
 
-      <TouchableOpacity style={styles.button} activeOpacity={0.7} {...rest}>
+      <TouchableOpacity activeOpacity={0.7} {...rest}>
         <View style={styles.icon}>
           <MaterialCommunityIcons name={IconName} color="#F5F5F5" size={28} />
         </View>
