@@ -5,7 +5,7 @@ export declare global {
       recoverPassword: undefined;
       login: undefined;
       home: undefined;
-
+      verifyKey: undefined;
     }
   }
 }
