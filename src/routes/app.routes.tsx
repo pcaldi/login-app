@@ -1,9 +1,10 @@
 // Adiciona estado para o componente
 import { useEffect, useMemo, useState } from 'react';
 
+import { AuthContext } from '@/context/authContext';
+
 // Gerencia a navegação, atua como container na pilha de telas
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 
 // AsyncStorage armazena dados no dispositivo
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,7 +17,8 @@ import { Login } from '@/screen/Login';
 import { NewUser } from '@/screen/NewUser';
 import { RecoverPassword } from '@/screen/RecoverPassword';
 import { Home } from '@/screen/Home';
-import { AuthContext } from '@/context/authContext';
+import { VerifyKey } from '@/screen/VerifyKey';
+
 
 // Configuração e gestão da  navegação entre telas
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -33,6 +35,13 @@ export function AppRoutes() {
       signIn: async () => {
         const valToken = await AsyncStorage.getItem('@token')
         setUserToken(valToken);
+      },
+      // Função signOut será exportada para outras telas
+      signOut: async () => {
+        await AsyncStorage.removeItem('@token');
+        await AsyncStorage.removeItem('@name');
+        await AsyncStorage.removeItem('@email');
+        setUserToken(null);
       }
     }
   }, []);
@@ -70,8 +79,10 @@ export function AppRoutes() {
           <Screen name="login" component={Login} />
           <Screen name="newUser" component={NewUser} />
           <Screen name="recoverPassword" component={RecoverPassword} />
+          <Screen name="verifyKey" component={VerifyKey} />
 
-        </Navigator>)}
+        </Navigator>
+      )}
 
     </AuthContext.Provider>
   )
