@@ -1,6 +1,7 @@
 // Armazenar estados
 import { useState } from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+import { Image, ScrollView, View } from 'react-native';
 
 // Feedback visual ao usuário
 import Toast from 'react-native-toast-message'
@@ -17,10 +18,11 @@ import { styles } from './styles';
 // Componentes
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import { Loading } from '@/components/Loading';
+import { LinkButton } from '@/components/LinkButton';
 
 // Arquivo com configurações da API
 import api from '@/services/api';
-import { Loading } from '@/components/Loading';
 
 
 export function NewUser() {
@@ -146,6 +148,7 @@ export function NewUser() {
 
 
   return (
+
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {/* Logo da tela */}
@@ -185,10 +188,8 @@ export function NewUser() {
         {/* Botão de Submit/Cadastrar enviar os dados  do formulário */}
         <Button title='Cadastrar' disabled={loading} onPress={handleAddNewUser} />
 
-        {/* Link para acessar a tela/rota login */}
-        <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleLoginScreen}>
-          <Text style={styles.title}>Login</Text>
-        </TouchableOpacity>
+        {/* Link para acessar a tela/rota de login */}
+        <LinkButton title='Login' onPress={handleLoginScreen} />
 
       </View>
       {
@@ -196,6 +197,7 @@ export function NewUser() {
         <Loading />
       }
     </ScrollView>
+
   );
 
 }

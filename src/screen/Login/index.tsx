@@ -24,11 +24,11 @@ import { styles } from './styles';
 // Componentes
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import { Loading } from '@/components/Loading';
+import { LinkButton } from '@/components/LinkButton';
 
 // Arquivo com configurações da API
 import api from '@/services/api';
-import { Loading } from '@/components/Loading';
-
 
 
 export function Login() {
@@ -52,8 +52,6 @@ export function Login() {
   function handleRecoverPasswordScreen() {
     navigation.navigate('recoverPassword');
   }
-
-
 
   // Função que submete o login
   async function handleLoginSubmit() {
@@ -199,16 +197,11 @@ export function Login() {
         <Button title='Acessar' disabled={loading} onPress={handleLoginSubmit} />
 
         {/* Link para acessar a tela/rota de cadastrar novo usuário */}
-        <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleNewUserScreen}>
-          <Text style={styles.title}>Cadastrar</Text>
-        </TouchableOpacity>
+        <LinkButton title='Cadastrar' onPress={handleNewUserScreen} />
 
 
         {/* Link para acessar a tela/rota de recuperar senha do usuário */}
-        <TouchableOpacity style={styles.titleBtn} activeOpacity={0.7} onPress={handleRecoverPasswordScreen}>
-          <Text style={styles.title}>Recuperar Senha</Text>
-        </TouchableOpacity>
-
+        <LinkButton title='Recuperar Senha' onPress={handleRecoverPasswordScreen} />
 
         {
           loading &&
