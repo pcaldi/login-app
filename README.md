@@ -48,3 +48,8 @@ npm install --save react-native-toast-message
 ```
 npx expo install @react-native-async-storage/async-storage
 ```
+
+### Biblioteca para adicionar Tab Navigation
+```
+npm install @react-navigation/bottom-tabs
+```
