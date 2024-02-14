@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { AuthContext } from '@/context/authContext';
 
+// Barra de navegação na parte inferior da tela
+import { BottomTab } from './bottomTab';
+
 // Gerencia a navegação, atua como container na pilha de telas
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -71,9 +74,9 @@ export function AppRoutes() {
       {/* /* Carregar as Screens */}
 
       {userToken ? (
-        <Navigator screenOptions={{ headerShown: false }}>
-          <Screen name="home" component={Home} />
-        </Navigator>
+
+        <BottomTab />
+
       ) : (
         <Navigator screenOptions={{ headerShown: false }}>
           <Screen name="login" component={Login} />
