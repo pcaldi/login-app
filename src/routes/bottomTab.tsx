@@ -9,6 +9,9 @@ import { Home } from "@/screen/Home";
 import { Profile } from "@/screen/Profile";
 import { ListUser } from "@/screen/ListUser";
 
+// Configuração e gestão da  navegação entre
+import { StackUserNavigation } from "./stackNavigator";
+
 
 export function BottomTab() {
   const { Navigator, Screen } = createBottomTabNavigator();
@@ -35,7 +38,7 @@ export function BottomTab() {
 
       <Screen
         name="listUser"
-        component={ListUser} options={{
+        component={StackUserNavigation} options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="view-list" size={size} color={color} />
           ),
