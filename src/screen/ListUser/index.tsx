@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 // Componentes para estruturar o conteúdo
 import { View, ScrollView, Text } from 'react-native';
 
+// Navegação entre as telas
+import { useNavigation } from '@react-navigation/native';
+
 // Arquivo com configurações da API
 import api from '@/services/api';
 
@@ -25,6 +28,8 @@ export function ListUser() {
 
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const navigation = useNavigation();
 
 
   async function handleGetUser() {
@@ -87,7 +92,12 @@ export function ListUser() {
                 <Text style={styles.valueData}>{user.name}</Text>
               </View>
               <View style={styles.icon}>
-                <LinkButton IconName='greater-than' size={18} color='#c7c7c7' />
+                <LinkButton
+                  IconName='greater-than'
+                  size={18}
+                  color='#c7c7c7'
+                  onPress={() => navigation.navigate('userDetails')}
+                />
               </View >
 
             </View>
