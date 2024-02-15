@@ -19,7 +19,6 @@ import { getValToken } from '@/services/auth';
 import { Login } from '@/screen/Login';
 import { NewUser } from '@/screen/NewUser';
 import { RecoverPassword } from '@/screen/RecoverPassword';
-import { Home } from '@/screen/Home';
 import { VerifyKey } from '@/screen/VerifyKey';
 
 
