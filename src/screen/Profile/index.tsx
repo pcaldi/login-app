@@ -1,5 +1,3 @@
-// useContext - Compartilhar dados entre as telas
-import { useContext } from 'react';
 
 import { View } from 'react-native';
 
@@ -9,18 +7,12 @@ import { styles } from './styles';
 // Componentes
 import { Header } from '@/components/Header';
 
-// Importar o context para deslogar o usuário
-import { AuthContext } from '@/context/authContext';
-
 // Criar e exportar a função com a tela home
 export function Profile() {
 
-  // Recuperar a função signOut do context
-  const { signOut } = useContext(AuthContext)
-
   return (
     <View style={styles.container}>
-      <Header title='Perfil' IconName='logout' onPress={() => signOut()} />
+      <Header title='Perfil' />
     </View>
   )
 }

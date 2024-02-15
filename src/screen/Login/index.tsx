@@ -2,7 +2,7 @@
 // useContext - Compartilhar dados entre as telas
 import { useContext, useState } from 'react';
 
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 
 import { AuthContext } from '@/context/authContext';
 
