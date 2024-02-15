@@ -27,7 +27,5 @@ export const styles = StyleSheet.create({
     color: '#F5F5F5',
     flex: 0
   },
-  icon: {
-
-  }
+  icon: {}
 });

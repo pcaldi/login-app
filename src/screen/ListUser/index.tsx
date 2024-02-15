@@ -5,9 +5,6 @@ import { useEffect, useState } from 'react';
 // Componentes para estruturar o conteúdo
 import { View, ScrollView, Text } from 'react-native';
 
-// Importar ícones
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-
 // Arquivo com configurações da API
 import api from '@/services/api';
 
