@@ -1,5 +1,7 @@
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import { styles } from "./styles";
+
+// Importar ícones
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 // Para pegar/tipar todos os items que tem na biblioteca
