@@ -6,6 +6,9 @@ export declare global {
       login: undefined;
       home: undefined;
       verifyKey: undefined;
+      userDetails: undefined;
+      listUser: undefined;
+      profile: undefined;
     }
   }
 }
