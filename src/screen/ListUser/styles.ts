@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
   rowData: {
     padding: 14,
     width: '100%',
-    backgroundColor: '#1d1d35',
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#c7C7C7',
     marginTop: 5,
     marginBottom: 5,
     borderRadius: 6,
