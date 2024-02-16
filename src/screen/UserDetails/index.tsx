@@ -130,8 +130,8 @@ export function UserDetails() {
 
             <View style={styles.btnView}>
 
-              <Button title='Editar' variant='outline' />
-              <Button title='Deletar' variant='delete' />
+              <Button title='Editar' variant='outline' iconName='account-edit-outline' />
+              <Button title='Deletar' variant='delete' iconName='trash-can-outline' />
 
             </View>
 
