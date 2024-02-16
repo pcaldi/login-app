@@ -20,8 +20,10 @@ import Toast from 'react-native-toast-message';
 // Componentes
 import { Header } from '@/components/Header';
 import { Loading } from '@/components/Loading';
-import { UserDTO } from '@/dtos/UserDTO';
 import { LinkButton } from '@/components/LinkButton';
+
+import { UserDTO } from '@/dtos/UserDTO';
+
 
 // Criar e exportar a função com a tela home
 export function ListUser() {
@@ -75,7 +77,12 @@ export function ListUser() {
         setLoading(false);
       })
   }
+  /*
+    function handleDetailsUser(userId: string) {
+      navigation.navigate('userDetails', { userId });
 
+    }
+   */
   useEffect(() => {
     handleGetUser();
   }, []);
@@ -96,7 +103,8 @@ export function ListUser() {
                   IconName='greater-than'
                   size={18}
                   color='#c7c7c7'
-                  onPress={() => navigation.navigate('userDetails')}
+                  onPress={() => navigation.navigate('userDetails', { userId: user.id })}
+
                 />
               </View >
 
