@@ -22,7 +22,7 @@ export function Header({ title, IconName, ...rest }: HeaderProps) {
 
       <TouchableOpacity activeOpacity={0.7} {...rest}>
         <View style={styles.icon}>
-          <MaterialCommunityIcons name={IconName} color="#C7C7C7" size={28} />
+          <MaterialCommunityIcons name={IconName} color="#C7C7C7" size={32} />
         </View>
       </TouchableOpacity>
 
