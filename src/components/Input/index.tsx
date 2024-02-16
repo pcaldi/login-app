@@ -9,7 +9,7 @@ type Props = TextInputProps & {}
 export function Input({ ...rest }: Props) {
   return (
 
-    <TextInput style={styles.input} {...rest} />
+    <TextInput style={styles.input} {...rest} cursorColor='#6c7fd8' />
 
 
   )
