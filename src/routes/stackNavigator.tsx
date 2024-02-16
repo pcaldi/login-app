@@ -1,4 +1,4 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { ListUser } from "@/screen/ListUser";
 import { UserDetails } from "@/screen/UserDetails";

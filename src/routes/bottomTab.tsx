@@ -1,5 +1,5 @@
 // Importar função para criar a barra de navegação
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 // Importar ícones
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -7,7 +7,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 // Telas
 import { Home } from "@/screen/Home";
 import { Profile } from "@/screen/Profile";
-import { ListUser } from "@/screen/ListUser";
 
 // Configuração e gestão da  navegação entre
 import { StackUserNavigation } from "./stackNavigator";
@@ -37,7 +36,7 @@ export function BottomTab() {
 
 
       <Screen
-        name="listUser"
+        name="listUserTab"
         component={StackUserNavigation} options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="view-list" size={size} color={color} />
