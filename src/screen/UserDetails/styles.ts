@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   contentView: {
     borderBottomColor: '#c4c4c4',
     borderBottomWidth: 1,
-    marginBottom: 12,
+    marginBottom: 6,
     padding: 12,
   },
 
@@ -22,17 +22,17 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#6c7fd8',
-    marginBottom: 8,
+    marginBottom: 6,
   },
 
   subtitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#f5f5f5',
-    marginBottom: 8,
   },
   btnView: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 18,
   }
 });
