@@ -19,6 +19,7 @@ export declare global {
       // Rotas que não esperam nenhum parâmetro
       listUser: undefined;
       profile: undefined;
+      addUser: undefined;
     }
   }
 }
