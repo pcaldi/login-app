@@ -22,6 +22,7 @@ import { Header } from '@/components/Header';
 import { Loading } from '@/components/Loading';
 import { LinkButton } from '@/components/LinkButton';
 
+// DTO - Data Transfer Object
 import { UserDTO } from '@/dtos/UserDTO';
 
 
@@ -90,7 +91,11 @@ export function ListUser() {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <Header title='Lista de Usuários' />
+        <Header
+          title='Lista de Usuários'
+          IconName='account-plus-outline'
+          onPress={() => navigation.navigate('addUser')}
+        />
 
         {users.map((user) => {
           return (
