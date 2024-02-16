@@ -4,16 +4,20 @@ export const styles = StyleSheet.create({
   container: {
     width: '90%',
     height: 46,
-    backgroundColor: '#6c7fd8',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 32,
-    marginBottom: 16,
+    marginTop: 16,
+    marginBottom: 8,
     borderRadius: 20,
+  },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 22,
-    color: '#F5F5F5',
-    fontWeight: '600'
-  }
-})
+    fontWeight: "bold",
+  },
+});
+
