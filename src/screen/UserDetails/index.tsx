@@ -19,6 +19,9 @@ import { UserDTO } from '@/dtos/UserDTO';
 // Arquivo com configurações da API
 import api from '@/services/api';
 
+// Incluir AsyncStorage para armazenar/recuperar dados no dispositivo
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // Feedback visual ao usuário
 import Toast from 'react-native-toast-message';
 import { Loading } from '@/components/Loading';
@@ -53,7 +56,15 @@ export function UserDetails() {
     // Alterar para TRUE e apresentar o loading
     setLoading(true);
 
-    await api.get(`/users/${userId}`)
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token')
+
+
+    await api.get(`/users/${userId}`, {
+      'headers': {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((response) => {// Acesso o then quando a API retornar o status de sucesso
 
         //console.log(response.data.user);

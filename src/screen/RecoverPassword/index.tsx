@@ -12,6 +12,9 @@ import { useNavigation } from '@react-navigation/native';
 // Arquivo com configurações da API
 import api from '@/services/api';
 
+// Arquivo com validação do formulário
+import { validateSchemaRecoverPassword } from '@/utils/validateSchema';
+
 // Validar os dados do formulário
 import * as yup from 'yup';
 
@@ -21,7 +24,6 @@ import { Header } from '@/components/Header';
 import { Input } from '@/components/Input';
 import { Loading } from '@/components/Loading';
 import { LinkButton } from '@/components/LinkButton';
-
 
 export function RecoverPassword() {
   // Armazenar informações nos estados/State
@@ -45,7 +47,7 @@ export function RecoverPassword() {
       setLoading(true);
 
       // Validar o formulário com YUP
-      await validateSchema.validate(
+      await validateSchemaRecoverPassword.validate(
         { email }, { abortEarly: false }
       );
 
@@ -98,12 +100,6 @@ export function RecoverPassword() {
     }
   }
 
-  // Validar o formulário com YUP
-  const validateSchema = yup.object({
-    email: yup.string()
-      .required('Error: Necessário preencher email válido.')
-      .email('Error: Necessário preencher o campo com um e-mail válido.'),
-  });
 
   return (
     <View style={styles.container}>

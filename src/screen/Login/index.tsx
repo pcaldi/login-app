@@ -30,6 +30,9 @@ import { LinkButton } from '@/components/LinkButton';
 // Arquivo com configurações da API
 import api from '@/services/api';
 
+// Arquivo com validação do formulário
+import { validateSchemaLogin } from '@/utils/validateSchema';
+
 
 export function Login() {
   // Armazenar informações nos estados/State
@@ -63,7 +66,7 @@ export function Login() {
       setLoading(true);
 
       // Validar o formulário com YUP
-      await validateSchema.validate(
+      await validateSchemaLogin.validate(
         { email, password }, { abortEarly: false }
       );
 
@@ -155,14 +158,6 @@ export function Login() {
     }
 
   }
-
-  // Validar o formulário com YUP
-  const validateSchema = yup.object({
-    email: yup.string()
-      .required('Error: Necessário preencher o campo usuário.')
-      .email('Error: Necessário preencher o campo com um e-mail válido.'),
-    password: yup.string().required('Error: Necessário preencher o campo senha.')
-  });
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>

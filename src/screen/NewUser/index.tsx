@@ -21,11 +21,15 @@ import { Input } from '@/components/Input';
 import { Loading } from '@/components/Loading';
 import { LinkButton } from '@/components/LinkButton';
 
+// Arquivo com validação do formulário
+import { validateSchemaForm } from '@/utils/validateSchema';
+
 // Arquivo com configurações da API
 import api from '@/services/api';
 
 
 export function NewUser() {
+
   // Armazenar informações nos estados/State
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -50,7 +54,7 @@ export function NewUser() {
       setLoading(true);
 
       // Validar o formulário com YUP
-      await validateSchema.validate(
+      await validateSchemaForm.validate(
         { name, email, password }, { abortEarly: false }
       );
 
@@ -133,19 +137,6 @@ export function NewUser() {
       setLoading(false);
     }
   }
-
-  // Validar o formulário com YUP
-  const validateSchema = yup.object({
-    name: yup.string().required('Error: Necessário preencher o campo nome!'),
-    email: yup.string()
-      .required('Error: Necessário preencher o campo e-mail!')
-      .email('Error: Necessário preencher com e-mail válido.!'),
-    password: yup.string()
-      .required('Error: Necessário preencher o campo senha!')
-      .min(6, 'A senha deve ter no mínimo 6 caracteres')
-  });
-
-
 
   return (
 

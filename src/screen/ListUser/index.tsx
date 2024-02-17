@@ -11,6 +11,9 @@ import { useNavigation } from '@react-navigation/native';
 // Arquivo com configurações da API
 import api from '@/services/api';
 
+// Incluir AsyncStorage para armazenar/recuperar dados no dispositivo
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { styles } from './styles';
 
@@ -29,18 +32,29 @@ import { UserDTO } from '@/dtos/UserDTO';
 // Criar e exportar a função com a tela home
 export function ListUser() {
 
+  // Armazenar dados
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // Navegar entre as telas
   const navigation = useNavigation();
-
 
   async function handleGetUser() {
 
     // Alterar para TRUE e apresentar o loading
     setLoading(true);
 
-    await api.get('/users')
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token')
+    console.log(token);
+
+    await api.get('/users',
+      {
+        'headers': {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    )
       .then((response) => { // Acesso o then quando a API retornar o status de sucesso
 
         //console.log(response.data.users);
