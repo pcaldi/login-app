@@ -29,5 +29,18 @@ const validateSchemaRecoverPassword = yup.object({
     .email('Error: Necessário preencher o campo com um e-mail válido.'),
 });
 
+// Validar o Editar usuário com YUP
+const validateSchemaEdit = yup.object({
+  name: yup.string().required('Error: Necessário preencher o campo nome!'),
+  email: yup.string()
+    .required('Error: Necessário preencher o campo e-mail!')
+    .email('Error: Necessário preencher com e-mail válido!'),
+});
+
 // Exporto as validações
-export { validateSchemaForm, validateSchemaLogin, validateSchemaRecoverPassword }
+export {
+  validateSchemaForm,
+  validateSchemaLogin,
+  validateSchemaRecoverPassword,
+  validateSchemaEdit
+}

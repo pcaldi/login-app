@@ -20,6 +20,7 @@ export declare global {
       listUser: undefined;
       profile: undefined;
       addUser: undefined;
+      editUser: undefined;
     }
   }
 }

@@ -141,8 +141,18 @@ export function UserDetails() {
 
             <View style={styles.btnView}>
 
-              <Button title='Editar' variant='outline' iconName='account-edit-outline' />
-              <Button title='Deletar' variant='delete' iconName='trash-can-outline' />
+              <Button
+                title='Editar'
+                variant='outline'
+                iconName='account-edit-outline'
+                onPress={() => navigation.navigate('editUser')}
+              />
+
+              <Button
+                title='Deletar'
+                variant='delete'
+                iconName='trash-can-outline'
+              />
 
             </View>
 

@@ -46,7 +46,7 @@ export function ListUser() {
 
     // Recuperar o token
     const token = await AsyncStorage.getItem('@token')
-    console.log(token);
+    //console.log(token);
 
     await api.get('/users',
       {

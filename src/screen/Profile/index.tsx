@@ -10,9 +10,13 @@ import { Header } from '@/components/Header';
 // Criar e exportar a função com a tela home
 export function Profile() {
 
+
+
   return (
     <View style={styles.container}>
-      <Header title='Perfil' />
+      <Header
+        title='Perfil'
+      />
     </View>
   )
 }
