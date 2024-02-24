@@ -1,6 +1,6 @@
 // useState - Armazenar estados
 // useEffect - Criar efeito colateral em componentes funcionais
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 // Componentes para estruturar o conteúdo
 import { ScrollView, Text, View } from 'react-native';
@@ -9,10 +9,12 @@ import { ScrollView, Text, View } from 'react-native';
 import { styles } from './styles';
 
 // Navegação entre as telas e hooks de navegação
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
 // Componentes
 import { Header } from '@/components/Header';
+import { Loading } from '@/components/Loading';
+import { Button } from '@/components/Button';
 
 import { UserDTO } from '@/dtos/UserDTO';
 
@@ -24,11 +26,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Feedback visual ao usuário
 import Toast from 'react-native-toast-message';
-import { Loading } from '@/components/Loading';
-import { Button } from '@/components/Button';
+
+
 
 // Definindo o tipo esperado para os parâmetros da rota
-type RouteParamsProp = {
+export type RouteParamsProp = {
   userId: string;
 }
 
@@ -105,9 +107,12 @@ export function UserDetails() {
       });
   }
 
-  useEffect(() => {
-    getUserDetails();
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      getUserDetails();
+    }, [])
+  )
+
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
@@ -145,7 +150,7 @@ export function UserDetails() {
                 title='Editar'
                 variant='outline'
                 iconName='account-edit-outline'
-                onPress={() => navigation.navigate('editUser')}
+                onPress={() => navigation.navigate('editUser', { userId: user.id })}
               />
 
               <Button
