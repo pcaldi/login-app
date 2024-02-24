@@ -1,12 +1,12 @@
 // useState - Armazenar estados
 // useEffect - Criar efeito colateral em componentes funcionais
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Componentes para estruturar o conteúdo
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Pressable } from 'react-native';
 
 // Navegação entre as telas
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 // Arquivo com configurações da API
 import api from '@/services/api';
@@ -98,9 +98,14 @@ export function ListUser() {
 
     }
    */
-  useEffect(() => {
-    handleGetUser();
-  }, []);
+
+
+  useFocusEffect(
+    useCallback(() => {
+      handleGetUser();
+    }, [])
+  )
+
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
@@ -113,21 +118,26 @@ export function ListUser() {
 
         {users.map((user) => {
           return (
-            <View key={user.id} style={styles.rowData}>
-              <View style={styles.infoData}>
-                <Text style={styles.valueData}>{user.name}</Text>
+            <Pressable key={user.id} onPress={() => navigation.navigate('userDetails', { userId: user.id })}>
+              <View style={styles.rowData}>
+
+                <View style={styles.infoData}>
+                  <Text style={styles.valueData}>{user.name}</Text>
+                </View>
+
+                <View style={styles.icon}>
+
+                  <LinkButton
+                    IconName='greater-than'
+                    size={18}
+                    color='#c7c7c7'
+                    onPress={() => navigation.navigate('userDetails', { userId: user.id })}
+
+                  />
+                </View >
+
               </View>
-              <View style={styles.icon}>
-                <LinkButton
-                  IconName='greater-than'
-                  size={18}
-                  color='#c7c7c7'
-                  onPress={() => navigation.navigate('userDetails', { userId: user.id })}
-
-                />
-              </View >
-
-            </View>
+            </Pressable>
           )
         })}
 
