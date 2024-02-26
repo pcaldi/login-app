@@ -1,10 +1,11 @@
 // useState - Armazenar estados
-// useEffect - Criar efeito colateral em componentes funcionais
-import { useCallback, useEffect, useState } from 'react';
+//useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
+import { useCallback, useState } from 'react';
 
 // Componentes para estruturar o conteúdo
 import { View, ScrollView, Text, Pressable } from 'react-native';
 
+//useFocusEffect - para executar um efeito quando componente  recebe foco
 // Navegação entre as telas
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -92,14 +93,9 @@ export function ListUser() {
         setLoading(false);
       })
   }
-  /*
-    function handleDetailsUser(userId: string) {
-      navigation.navigate('userDetails', { userId });
 
-    }
-   */
-
-
+  //useFocusEffect - para executar um efeito quando componente  recebe foco
+  //useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
   useFocusEffect(
     useCallback(() => {
       handleGetUser();
@@ -118,7 +114,10 @@ export function ListUser() {
 
         {users.map((user) => {
           return (
-            <Pressable key={user.id} onPress={() => navigation.navigate('userDetails', { userId: user.id })}>
+            <Pressable
+              key={user.id}
+              onPress={() => navigation.navigate('userDetails', { userId: user.id })}
+            >
               <View style={styles.rowData}>
 
                 <View style={styles.infoData}>

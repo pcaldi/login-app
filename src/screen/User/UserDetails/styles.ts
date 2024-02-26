@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
 
   content: {
     padding: 12,
-    marginTop: 32,
   },
 
   contentView: {
@@ -33,6 +32,6 @@ export const styles = StyleSheet.create({
   btnView: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 18,
+    marginBottom: 6,
   }
 });

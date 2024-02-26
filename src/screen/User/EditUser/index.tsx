@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { Alert, ScrollView, Text, View } from 'react-native';
 
+// Criar o campo SELECT
+import DropDownPicker from 'react-native-dropdown-picker';
+
 // Validar os dados do formulário
 import * as yup from 'yup';
 
@@ -32,6 +35,14 @@ import { validateSchemaEdit } from '@/utils/validateSchema';
 // Definindo o tipo esperado para os parâmetros da rota
 import { RouteParamsProp } from '../UserDetails';
 
+
+type SituationProps = {
+  id: string;
+  nameSituation: string;
+  label: string;
+  value: string;
+}
+
 // Criar e exportar a função com a tela home
 export function EditUser() {
 
@@ -39,8 +50,10 @@ export function EditUser() {
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [situationId, setSituationId] = useState('');
+  const [situationId, setSituationId] = useState();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [situations, setSituations] = useState<SituationProps[]>([]);
 
   // Navega entre as telas
   const navigation = useNavigation();
@@ -81,10 +94,10 @@ export function EditUser() {
         // Redirecionar para tela listar após editar
         //navigation.navigate('listUser');
 
-      }).catch((err) => { // Acessar o catch quando a API retornar status erro
+      }).catch((error) => { // Acessar o catch quando a API retornar status erro
 
-        if (err.response) { // Acessa o IF quando a API retornar erro
-          Alert.alert("Ops", err.response.data.message.toString());
+        if (error.response) { // Acessa o IF quando a API retornar erro
+          Alert.alert("Ops", error.response.data.message.toString());
         } else { // Acessa o ELSE quando a API não responder
           Alert.alert("Ops", "Erro: Usuário não editado, tente mais tarde!");
         }
@@ -98,9 +111,46 @@ export function EditUser() {
 
   }
 
+  // Recuperar as Situations
+  const getSituations = async () => {
+
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token');
+
+    // Requisição para a API indicando a rota e os dados
+    await api.get('/situations', {
+      'headers': {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        //console.log(response.data.situations);
+
+        // Ler as situações retornadas da API
+        var listSituations = response.data.situations.map((situation: SituationProps) => {
+          return { label: situation.nameSituation, value: situation.id }
+        });
+
+        // Atribuo a variável listSituations para a constante setSituations
+        setSituations(listSituations as SituationProps[]);
+
+      })
+      .catch((error) => {// Acessa o catch quando a API retornar erro
+
+        if (error.response) { // Acessa o if quando API retornar erro
+          Alert.alert("Ops", error.response.data.message)
+
+        } else { // Acessa o ELSE quando a API não responder
+          Alert.alert("Ops", "Erro: Tente mais tarde!")
+        }
+
+      })
+  }
+
   // Executar quando carregar a tela e chamar a função getUser();
   useEffect(() => {
     getUser();
+    getSituations();
   }, []);
 
 
@@ -162,7 +212,7 @@ export function EditUser() {
 
         <Header
           title='Editar usuário'
-          IconName='page-first'
+          IconName='backburger'
           onPress={() => { navigation.goBack() }}
         />
 
@@ -174,7 +224,7 @@ export function EditUser() {
 
           <InputForm
             placeholder='Nome completo'
-            placeholderTextColor='#F5F5F5'
+            placeholderTextColor='#c2c2c2'
             autoCorrect={false}
             value={name}
             onChangeText={setName}
@@ -189,7 +239,7 @@ export function EditUser() {
 
           <InputForm
             placeholder='E-mail válido'
-            placeholderTextColor='#F5F5F5'
+            placeholderTextColor='#c2c2c2'
             autoCorrect={false}
             autoCapitalize='none'
             keyboardType='email-address'
@@ -199,6 +249,23 @@ export function EditUser() {
           />
         </View>
 
+        <View style={styles.formLabel}>
+          <Text style={styles.textForm}>* Situações</Text>
+        </View>
+
+        <DropDownPicker
+          placeholder='Selecione...'
+          open={open}
+          value={situationId!}
+          items={situations}
+          setValue={setSituationId}
+          setItems={setSituations}
+          setOpen={setOpen}
+          listMode='SCROLLVIEW'
+          dropDownContainerStyle={styles.dropDownContainerStyle}
+          style={styles.DropDownPickerStyle}
+          textStyle={styles.textStyle}
+        />
 
 
         <View style={styles.viewRequired}>

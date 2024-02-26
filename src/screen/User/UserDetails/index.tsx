@@ -1,13 +1,15 @@
 // useState - Armazenar estados
 // useEffect - Criar efeito colateral em componentes funcionais
+//useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
 import { useCallback, useState } from 'react';
 
 // Componentes para estruturar o conteúdo
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { styles } from './styles';
 
+//useFocusEffect - para executar um efeito quando componente  recebe foco
 // Navegação entre as telas e hooks de navegação
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
@@ -16,6 +18,7 @@ import { Header } from '@/components/Header';
 import { Loading } from '@/components/Loading';
 import { Button } from '@/components/Button';
 
+// DTO - Data Transfer Object
 import { UserDTO } from '@/dtos/UserDTO';
 
 // Arquivo com configurações da API
@@ -23,11 +26,6 @@ import api from '@/services/api';
 
 // Incluir AsyncStorage para armazenar/recuperar dados no dispositivo
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Feedback visual ao usuário
-import Toast from 'react-native-toast-message';
-
-
 
 // Definindo o tipo esperado para os parâmetros da rota
 export type RouteParamsProp = {
@@ -38,7 +36,7 @@ export type RouteParamsProp = {
 export function UserDetails() {
 
 
-  const [user, setUser] = useState<UserDTO>(); // Inicialize user como um único objeto UserDTO | null
+  const [user, setUser] = useState<UserDTO>(); // Inicialize user como um único objeto UserDTO
   const [loading, setLoading] = useState(false);
 
 
@@ -61,7 +59,7 @@ export function UserDetails() {
     // Recuperar o token
     const token = await AsyncStorage.getItem('@token')
 
-
+    // Requisição para a API indicando a rota e os dados
     await api.get(`/users/${userId}`, {
       'headers': {
         'Authorization': `Bearer ${token}`
@@ -69,47 +67,72 @@ export function UserDetails() {
     })
       .then((response) => {// Acesso o then quando a API retornar o status de sucesso
 
-        //console.log(response.data.user);
+        //console.log(response.data.user.image);
+
         setUser(response.data.user);
 
       })
 
-      .catch((err) => { // Acesso o then quando a API retornar o status de erro
+      .catch((error) => {// Acessa o catch quando a API retornar erro
 
-        if (err.response) {
-          // Feedback visual ao usuário
-          Toast.show({
-            type: 'error',
-            text1: 'Ops',
-            text2: err.response.data.message.toString(),
-            text2Style: {
-              fontSize: 12
-            }
-          });
-          // Retornar o usuário para a tela de Lista
-          navigation.navigate('listUser');
-        } else {
-          // Feedback visual ao usuário
-          Toast.show({
-            type: 'error',
-            text1: 'Ops',
-            text2: 'Tente Novamente mais tarde.',
-            text2Style: {
-              fontSize: 12
-            }
-          });
-          // Retornar o usuário para a tela de Lista
-          navigation.navigate('listUser');
+        if (error.response) { // Acessa o if quando API retornar erro
+          Alert.alert("Ops", error.response.data.message)
+
+        } else { // Acessa o ELSE quando a API não responder
+          Alert.alert("Ops", "Erro: Tente mais tarde!")
         }
+
       })
       .finally(() => { // Alterar para false e ocultar loading
         setLoading(false);
       });
   }
 
+  const handleDeleteUser = async () => {
+
+    // Alterar para TRUE e apresentar o loading
+    setLoading(true)
+
+    // Recupero o token
+    const token = await AsyncStorage.getItem('@token')
+
+    // Requisição para a API indicando a rota e os dados
+    await api.delete(`/users/${userId}`, {
+      'headers': {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((response) => {// Acessa o then quando a API retornar status sucesso
+
+        Alert.alert('Sucesso', response.data.message)
+
+        // Redireciono o usuário para a tela listUSer
+        navigation.navigate('listUser');
+
+      })
+      .catch((error) => {// Acessa o catch quando a API retornar erro
+
+        if (error.response) { // Acessa o if quando API retornar erro
+          Alert.alert("Ops", error.response.data.message)
+
+        } else { // Acessa o ELSE quando a API não responder
+          Alert.alert("Ops", "Erro: Tente mais tarde!")
+        }
+
+      })
+      .finally(() => {
+        // Alterar para FALSE e retiro o loading
+        setLoading(true)
+
+      })
+  }
+
+  //useFocusEffect - para executar um efeito quando componente  recebe foco
+  //useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
   useFocusEffect(
     useCallback(() => {
       getUserDetails();
+
     }, [])
   )
 
@@ -119,11 +142,15 @@ export function UserDetails() {
       <View style={styles.container}>
         <Header
           title='Detalhes do usuário'
-          IconName='page-first'
+          IconName='backburger'
           onPress={() => { navigation.goBack() }}
         />
+
         {user &&
+
+
           <View style={styles.content}>
+
             <View style={styles.contentView}>
               <Text style={styles.title}>ID</Text>
               <Text style={styles.subtitle}>{user.id}</Text>
@@ -147,16 +174,24 @@ export function UserDetails() {
             <View style={styles.btnView}>
 
               <Button
-                title='Editar'
+                title='Editar Usuário'
                 variant='outline'
                 iconName='account-edit-outline'
                 onPress={() => navigation.navigate('editUser', { userId: user.id })}
               />
 
               <Button
-                title='Deletar'
+                title='Editar Senha'
+                variant='editPassword'
+                iconName='lock-reset'
+                onPress={() => navigation.navigate('editPasswordUser', { userId: user.id })}
+              />
+
+              <Button
+                title='Deletar Usuário'
                 variant='delete'
                 iconName='trash-can-outline'
+                onPress={handleDeleteUser}
               />
 
             </View>

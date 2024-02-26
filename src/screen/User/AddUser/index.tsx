@@ -1,6 +1,6 @@
-//useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
+
 //useState - Armazenar estados
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { Alert, ScrollView, Text, View } from 'react-native';
@@ -17,9 +17,11 @@ import api from '@/services/api';
 // Incluir AsyncStorage para armazenar/recuperar dados no dispositivo
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Criar o campo SELECT
+import DropDownPicker from 'react-native-dropdown-picker';
+
 //useNavigation - Navegação entre as telas
-//useFocusEffect - para executar um efeito quando componente  recebe foco
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 // Componentes
 import { Header } from '@/components/Header';
@@ -30,6 +32,13 @@ import { Loading } from '@/components/Loading';
 // Arquivo com validação do formulário
 import { validateSchemaForm } from '@/utils/validateSchema';
 
+type SituationProps = {
+  id: string;
+  nameSituation: string;
+  label: string;
+  value: string;
+}
+
 // Criar e exportar a função com a tela home
 export function AddUser() {
 
@@ -37,9 +46,12 @@ export function AddUser() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [situationId, setSituationId] = useState(4);
+  const [situationId, setSituationId] = useState();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [situations, setSituations] = useState<SituationProps[]>([]);
 
+  // Navegar entre as telas
   const navigation = useNavigation();
 
   // Processar/submeter os dados do formulário
@@ -55,7 +67,7 @@ export function AddUser() {
       const token = await AsyncStorage.getItem('@token')
 
       // Validar o formulário com Yup
-      await validateSchemaForm.validate({ name, email, password }, { abortEarly: false });
+      await validateSchemaForm.validate({ name, email, password, situationId }, { abortEarly: false });
 
       // Requisição para a API indicando a rota e os dados
       await api.post('/users', { name, email, password, situationId }, {
@@ -94,14 +106,48 @@ export function AddUser() {
     }
   }
 
-  //useFocusEffect - para executar um efeito quando componente  recebe foco
-  //useCallback - A função não será recriada a cada renderização, somente quando houver atualização na dependência
-  /*   useFocusEffect(
-      useCallback(() => {
-        handleAddNewUser()
-      }, [])
-    );
-   */
+  // Recuperar as Situations
+  const getSituations = async () => {
+
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token');
+
+    // Requisição para a API indicando a rota e os dados
+    await api.get('/situations', {
+      'headers': {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        //console.log(response.data.situations);
+
+        // Ler as situações retornadas da API
+        var listSituations = response.data.situations.map((situation: SituationProps) => {
+          return { label: situation.nameSituation, value: situation.id }
+        });
+
+        // Atribuo a variável listSituations para a constante setSituations
+        setSituations(listSituations as SituationProps[]);
+
+      })
+      .catch((error) => {// Acessa o catch quando a API retornar erro
+
+        if (error.response) { // Acessa o if quando API retornar erro
+          Alert.alert("Ops", error.response.data.message)
+
+        } else { // Acessa o ELSE quando a API não responder
+          Alert.alert("Ops", "Erro: Tente mais tarde!")
+        }
+
+      })
+  }
+
+  // Executa quando carregar a tela, e chama a função getSituations();
+  useEffect(() => {
+    getSituations();
+  }, []);
+
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
@@ -158,6 +204,24 @@ export function AddUser() {
             onChangeText={setPassword}
           />
         </View>
+
+        <View style={styles.formLabel}>
+          <Text style={styles.textForm}>* Situações</Text>
+        </View>
+
+        <DropDownPicker
+          placeholder='Selecione...'
+          open={open}
+          value={situationId!}
+          items={situations}
+          setValue={setSituationId}
+          setItems={setSituations}
+          setOpen={setOpen}
+          listMode='SCROLLVIEW'
+          dropDownContainerStyle={styles.dropDownContainerStyle}
+          style={styles.DropDownPickerStyle}
+          textStyle={styles.textStyle}
+        />
 
         <View style={styles.viewRequired}>
           <Text style={styles.txtRequired}>* Campo Obrigatório</Text>
