@@ -87,6 +87,25 @@ export const buttonEdit: ButtonVariant = {
   },
 };
 
+export const buttonEditPassword: ButtonVariant = {
+  enabled: {
+    button: {
+      backgroundColor: "transparent",
+      borderWidth: 2,
+      borderColor: "#9be69d",
+    },
+    title: { color: "#9be69d" },
+    icon: { color: "#9be69d" },
+  },
+  disabled: {
+    button: {
+      backgroundColor: "#B8B8B8",
+    },
+    title: { color: "#FFF" },
+    icon: { color: "#FFF" },
+  },
+};
+
 export const buttonDelete: ButtonVariant = {
   enabled: {
     button: {
@@ -111,4 +130,5 @@ export const variants = {
   outline: buttonOutline,
   edit: buttonEdit,
   delete: buttonDelete,
+  editPassword: buttonEditPassword,
 };

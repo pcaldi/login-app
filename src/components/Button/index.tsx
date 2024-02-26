@@ -16,7 +16,7 @@ type ButtonProps = TouchableOpacityProps & {
   iconName?: keyof typeof MaterialCommunityIcons.glyphMap;
   isLoading?: boolean;
   disabled?: boolean;
-  variant?: "primary" | "outline" | "edit" | "delete";
+  variant?: "primary" | "outline" | "edit" | "delete" | "editPassword";
   style?: TouchableOpacityProps["style"];
 }
 
