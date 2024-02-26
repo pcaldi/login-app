@@ -11,7 +11,7 @@ export declare global {
       home: undefined;
       verifyKey: undefined;
 
-      // Rota userDetails/editUser/editPasswordUser que espera o parâmetro userId do tipo string
+      // Rotas que esperam o parâmetro userId do tipo string
       userDetails: {
         userId: string;
       };
@@ -25,9 +25,11 @@ export declare global {
       };
 
       // Rotas que não esperam nenhum parâmetro
-      listUser: undefined;
-      profile: undefined;
       addUser: undefined;
+      listUser: undefined;
+      editProfile: undefined;
+      profileDetails: undefined;
+      editPasswordProfile: undefined;
     }
   }
 }
