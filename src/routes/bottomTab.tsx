@@ -9,7 +9,7 @@ import { Home } from "@/screen/Home";
 import { Profile } from "@/screen/Profile";
 
 // Configuração e gestão da  navegação entre
-import { StackUserNavigation } from "./stackNavigator";
+import { StackUserNavigation } from "./StackUserNavigation";
 
 
 export function BottomTab() {
