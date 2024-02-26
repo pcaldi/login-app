@@ -120,16 +120,13 @@ export function EditPasswordUser() {
           // Redirecionar para tela Detalhes do usuário após editar
           navigation.navigate('userDetails', { userId: id })
           //navigation.navigate('listUser');
-
-        }).catch((error) => { // Acessa o catch quando a API retornar status erro
-
         })
         .catch((error) => { // Acessar o catch quando a API retornar status erro
 
           if (error.response) { // Acessa o IF quando a API retornar erro
             Alert.alert("Ops", error.response.data.message.toString());
           } else { // Acessa o ELSE quando a API não responder
-            Alert.alert("Ops", "Erro: Usuário não editado, tente mais tarde!");
+            Alert.alert("Ops", "Erro: Senha não editada, tente mais tarde!");
           }
         });
 

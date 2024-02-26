@@ -4,7 +4,7 @@
 import { useCallback, useState } from 'react';
 
 // Componentes para estruturar o conteúdo
-import { Alert, Image, ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { styles } from './styles';
