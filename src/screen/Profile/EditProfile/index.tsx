@@ -1,4 +1,6 @@
-import { useState } from "react";
+//useState - Armazenar estados
+// useEffect - Criar efeito colateral em componentes funcionais
+import { useEffect, useState } from "react";
 
 // Incluir os componentes utilizado para estruturar o conteúdo
 import { Alert, Text, View } from "react-native";
@@ -23,6 +25,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Arquivo com configurações da API
 import api from "@/services/api";
+
+// Arquivo com validação do YUP
 import { validateSchemaEdit } from "@/utils/validateSchema";
 
 export function EditProfile() {
@@ -33,6 +37,35 @@ export function EditProfile() {
 
   // Navegar entre as telas
   const navigation = useNavigation();
+
+  async function getUser() {
+    //Alterar para TRUE e apresentar loading
+    setLoading(true);
+
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token');
+
+    // Requisição para a API indicando a rota e os dados
+    await api.get('/profile', {
+      'headers': {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((response) => { // Acessar o then quando a API retornar status sucesso
+
+        setName(response.data.user.name);
+        setEmail(response.data.user.email);
+      })
+      .catch((error) => {
+        // Acessar o catch quando a API retornar status erro
+        Alert.alert("Erro", error.response.data.message)
+      })
+      .finally(() => {
+        // Alterar para FALSE e apresentar loading
+        setLoading(false);
+
+      });
+  }
 
 
   async function handleEditProfile() {
@@ -51,21 +84,22 @@ export function EditProfile() {
           'Authorization': `Bearer ${token}`
         }
       })
-        .then((response) => {
-          // Acessa o then quando a API retornar sucesso
-          Alert.alert('Sucesso', response.data.message)
+        .then((response) => {// Acessa o then quando a API retornar sucesso
 
-          // Redirecionar para tela Edit Profile
-          navigation.navigate('editProfile');
+          Alert.alert("Sucesso", response.data.message);
 
         })
         .catch((error) => {// Acessa o catch quando a API retornar erro
 
           if (error.response) { // Acessa o if quando API retornar erro
             Alert.alert("Ops", error.response.data.message)
+            // Redirecionar para tela Home
+            navigation.navigate('home');
 
           } else { // Acessa o ELSE quando a API não responder
             Alert.alert("Ops", "Erro: Usuário não editado, tente mais tarde!")
+            // Redirecionar para tela Home
+            navigation.navigate('home');
           }
 
         });
@@ -83,6 +117,10 @@ export function EditProfile() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    getUser()
+  }, []);
 
   return (
     <View style={styles.container}>
