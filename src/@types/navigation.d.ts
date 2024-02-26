@@ -11,12 +11,16 @@ export declare global {
       home: undefined;
       verifyKey: undefined;
 
-      // Rota userDetails/editUser que espera o parâmetro userId do tipo string
+      // Rota userDetails/editUser/editPasswordUser que espera o parâmetro userId do tipo string
       userDetails: {
         userId: string;
       };
 
       editUser: {
+        userId: string;
+      };
+
+      editPasswordUser: {
         userId: string;
       };
 
