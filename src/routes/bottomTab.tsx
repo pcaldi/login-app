@@ -6,10 +6,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 // Telas
 import { Home } from "@/screen/Home";
-import { Profile } from "@/screen/Profile";
 
 // Configuração e gestão da  navegação entre
 import { StackUserNavigation } from "./StackUserNavigation";
+
+import { StackProfileNavigation } from "./StackProfileNavigation";
 
 
 export function BottomTab() {
@@ -44,8 +45,8 @@ export function BottomTab() {
         }} />
 
       <Screen
-        name="profile"
-        component={Profile} options={{
+        name="profileTab"
+        component={StackProfileNavigation} options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
           ),
