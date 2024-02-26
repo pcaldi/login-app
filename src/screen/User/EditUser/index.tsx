@@ -1,5 +1,5 @@
-
 //useState - Armazenar estados
+// useEffect - Criar efeito colateral em componentes funcionais
 import { useEffect, useState } from 'react';
 
 // Incluir os componentes utilizado para estruturar o conteúdo

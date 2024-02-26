@@ -1,6 +1,10 @@
+//useState - Armazenar estados
 import { useState } from "react";
 
-import { Alert, Text, View } from "react-native";// Incluir os componentes utilizado para estilizar o conteúdo
+// Incluir os componentes utilizado para estruturar o conteúdo
+import { Alert, Text, View } from "react-native";
+
+// Incluir os componentes utilizado para estilizar o conteúdo
 import { styles } from "./styles";
 
 // Arquivo com configurações da API
@@ -8,7 +12,6 @@ import api from '@/services/api';
 
 // Validar os dados do formulário
 import * as yup from 'yup';
-
 
 // Componentes
 import { Header } from "@/components/Header";
@@ -26,7 +29,7 @@ import { validateSchemaEditPassword } from "@/utils/validateSchema";
 
 
 export function EditPasswordProfile() {
-
+  // Armazenar estados
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -79,8 +82,6 @@ export function EditPasswordProfile() {
       setLoading(false);
     }
   }
-
-
 
   return (
     <View style={styles.container}>
