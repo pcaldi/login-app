@@ -17,7 +17,7 @@ import { getValToken } from '@/services/auth';
 
 // Telas
 import { Login } from '@/screen/Login';
-import { NewUser } from '@/screen/NewUser';
+import { NewUser } from '@/screen/User/NewUser';
 import { RecoverPassword } from '@/screen/RecoverPassword';
 import { VerifyKey } from '@/screen/VerifyKey';
 
