@@ -153,7 +153,7 @@ export function AddUser() {
       <View style={styles.container}>
         <Header
           title='Cadastrar Usuário'
-          IconName='page-first'
+          IconName='backburger'
           onPress={() => { navigation.goBack() }}
         />
         <View style={styles.formContainer}>
