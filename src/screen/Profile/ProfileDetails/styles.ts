@@ -15,9 +15,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    borderRadius: 999,
     width: 175,
     height: 175,
+    borderWidth: 2,
+    borderColor: '#6c7fd8',
+    borderRadius: 999,
     resizeMode: 'cover',
   },
 
