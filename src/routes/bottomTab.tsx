@@ -4,13 +4,10 @@ import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-naviga
 // Importar ícones
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-// Telas
-import { Home } from "@/screen/Home";
-
 // Configuração e gestão da  navegação entre
 import { StackUserNavigation } from "./StackUserNavigation";
-
 import { StackProfileNavigation } from "./StackProfileNavigation";
+import { StackHomeNavigation } from "./StackHomeNavigation";
 
 
 export function BottomTab() {
@@ -28,8 +25,8 @@ export function BottomTab() {
       }
     }}>
       <Screen
-        name="home"
-        component={Home} options={{
+        name="HomeTab"
+        component={StackHomeNavigation} options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
