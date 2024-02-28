@@ -5,7 +5,41 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#10101c',
 
-  }, formContainer: {
+  },
+  containerImage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  iconView: {
+    position: 'absolute',
+    zIndex: 999,
+    top: 1,
+    right: 120,
+    bottom: 120,
+    left: 220,
+
+    backgroundColor: '#6c7fd8',
+    borderRadius: 9999,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  icon: {
+    fontSize: 32,
+    color: '#F5F5F5',
+  },
+  image: {
+    borderWidth: 2,
+    borderColor: '#C7C7C7',
+    borderRadius: 999,
+    width: 175,
+    height: 175,
+    resizeMode: 'cover',
+  },
+
+  formContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },

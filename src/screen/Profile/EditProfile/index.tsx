@@ -1,12 +1,15 @@
 //useState - Armazenar estados
 // useEffect - Criar efeito colateral em componentes funcionais
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 // Incluir os componentes utilizado para estruturar o conteúdo
-import { Alert, Text, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 // Incluir os componentes utilizado para estilizar o conteúdo
 import { styles } from "./styles";
+
+// Biblioteca de ícones
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Validar os dados do formulário
 import * as yup from 'yup';
@@ -18,7 +21,7 @@ import { Button } from "@/components/Button";
 import { InputForm } from "@/components/InputForm";
 
 // Navegar entre as telas
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 // Incluir AsyncStorage para armazenar/recuperar dados no dispositivo
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -33,6 +36,7 @@ export function EditProfile() {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [image, setImage] = useState()
   const [loading, setLoading] = useState(false)
 
   // Navegar entre as telas
@@ -53,8 +57,12 @@ export function EditProfile() {
     })
       .then((response) => { // Acessar o then quando a API retornar status sucesso
 
+        //console.log(response.data.user.image);
+
         setName(response.data.user.name);
         setEmail(response.data.user.email);
+        setImage(response.data.user.image);
+
       })
       .catch((error) => {
         // Acessar o catch quando a API retornar status erro
@@ -66,7 +74,6 @@ export function EditProfile() {
 
       });
   }
-
 
   async function handleEditProfile() {
     try {
@@ -119,10 +126,11 @@ export function EditProfile() {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    getUser()
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getUser()
+    }, [])
+  )
 
   return (
     <View style={styles.container}>
@@ -133,6 +141,19 @@ export function EditProfile() {
         onPress={() => navigation.goBack()}
       />
 
+      <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('editProfileImage')}>
+        <View style={styles.containerImage}>
+          <View style={styles.iconView}>
+            <MaterialCommunityIcons style={styles.icon} name="camera-flip-outline" />
+          </View>
+
+          <Image
+            source={{ uri: image }}
+            style={styles.image}
+          />
+
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.formContainer}>
         <View style={styles.formLabel}>
@@ -188,6 +209,6 @@ export function EditProfile() {
         <Loading />
       }
 
-    </View>
+    </View >
   )
 }
