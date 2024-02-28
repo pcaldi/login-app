@@ -143,6 +143,8 @@ export function ProfileDetails() {
                 iconName='lock-reset'
                 onPress={() => { navigation.navigate('editPasswordProfile') }}
               />
+
+
             </View>
 
           </View>

@@ -34,8 +34,6 @@ const validateSchemaEditPassword = yup.object({
     .min(6, 'A senha deve ter no mínimo 6 caracteres'),
 });
 
-
-
 // Validar o Recuperar Senha com YUP
 const validateSchemaRecoverPassword = yup.object({
   email: yup.string()
@@ -57,5 +55,5 @@ export {
   validateSchemaLogin,
   validateSchemaRecoverPassword,
   validateSchemaEdit,
-  validateSchemaEditPassword
+  validateSchemaEditPassword,
 }
