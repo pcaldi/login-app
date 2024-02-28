@@ -33,6 +33,7 @@ export declare global {
       listUserTab: undefined;
       homeTab: undefined;
       profileTab: undefined;
+      editProfileImage: undefined;
     }
   }
 }
