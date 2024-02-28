@@ -30,6 +30,9 @@ export declare global {
       editProfile: undefined;
       profileDetails: undefined;
       editPasswordProfile: undefined;
+      listUserTab: undefined;
+      homeTab: undefined;
+      profileTab: undefined;
     }
   }
 }
