@@ -87,6 +87,8 @@ export function EditProfile() {
         .then((response) => {// Acessa o then quando a API retornar sucesso
 
           Alert.alert("Sucesso", response.data.message);
+          // Redirecionar para Profile Home
+          navigation.navigate('profileDetails');
 
         })
         .catch((error) => {// Acessa o catch quando a API retornar erro
