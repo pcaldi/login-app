@@ -74,15 +74,16 @@ export function EditProfileImage() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 4],
-      quality: 1
+      quality: 1,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri)
+      const imageUri = result.assets[0].uri;
+      setImage(imageUri);
+      //console.log(imageUri);
     } else {
-      Alert.alert("Ops", "Selecione uma imagem")
+      Alert.alert("Ops", "Selecione uma imagem");
     }
-
   }
 
   async function saveImage() {
@@ -95,8 +96,9 @@ export function EditProfileImage() {
       const token = await AsyncStorage.getItem('@token');
 
       const formData = new FormData();
+
       formData.append('image', JSON.parse(JSON.stringify({
-        name: 'image',
+        name: 'image.jpeg',
         uri: image,
         type: 'image/jpeg'
       })));
@@ -109,17 +111,26 @@ export function EditProfileImage() {
           'Content-Type': 'multipart/form-data',
         },
       })
-        .then((response) => {
+        .then((response) => {// Acessa o then quando a API retornar sucesso
           //console.log(response.data);
-
-          // Set a nova imagem do usuário
-          setImage(response.data.image)
-
+          Alert.alert("Sucesso", response.data.message)
           // Navegar para a tela Perfil
           navigation.navigate('profileDetails');
         })
-        .catch((error) => {
-          Alert.alert("Erro", error.response.data.message);
+        .catch((error) => {// Acessa o catch quando a API retornar erro
+
+          if (error.response) { // Acessa o if quando API retornar erro
+            Alert.alert("Ops", error.response.data.message)
+
+            // Redirecionar para tela Profile
+            navigation.navigate('profileDetails');
+
+          } else { // Acessa o ELSE quando a API não responder
+            Alert.alert("Ops", "Erro: Usuário não editado, tente mais tarde!")
+            // Redirecionar para tela Profile
+            navigation.navigate('profileDetails');
+          }
+
         })
         .finally(() => {
           setLoading(false);
@@ -128,7 +139,7 @@ export function EditProfileImage() {
 
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível atualizar a imagem do perfil');
-      console.log(error);
+      //console.log(error);
     } finally {
 
       // Altero para FALSE para ocultar o loading
@@ -138,8 +149,6 @@ export function EditProfileImage() {
 
   useEffect(() => {
     getUser();
-    //saveImage()
-    //handleImagePicker()
   }, [])
 
   return (
