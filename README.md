@@ -4,7 +4,7 @@
 -  Este é um aplicativo simples de login desenvolvido em React Native. Ele permite que os usuários façam login em uma conta usando um nome de usuário e senha.
 
 ---
-<div style="max-width: 800px; margin: 0 auto; text-align: center;">
+<div style="max-width: 800px; margin: 0 auto; align: center;">
   <img src="https://github.com/pcaldi/login-app/assets/114869399/a70c39db-e4f7-41b4-92ac-0615e3e31d2c" width="20%" />
   <img src="https://github.com/pcaldi/login-app/assets/114869399/632097ce-53cf-4173-877c-420eed6e7d4d" width="20%" />
   <img src="https://github.com/pcaldi/login-app/assets/114869399/5162389f-e840-454b-be04-fc39d3089fe7" width="20%" />
