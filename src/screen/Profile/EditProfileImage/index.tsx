@@ -113,6 +113,7 @@ export function EditProfileImage() {
       })
         .then((response) => {// Acessa o then quando a API retornar sucesso
           //console.log(response.data);
+
           Alert.alert("Sucesso", response.data.message)
           // Navegar para a tela Perfil
           navigation.navigate('profileDetails');
