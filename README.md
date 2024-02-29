@@ -1,7 +1,23 @@
+<h1 align="center">📱 Login App</h1>
 
 # 🖥️ Projeto
 -  Este é um aplicativo simples de login desenvolvido em React Native. Ele permite que os usuários façam login em uma conta usando um nome de usuário e senha.
 
+---
+<div style="max-width: 800px; margin: 0 auto; text-align: center;">
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/a70c39db-e4f7-41b4-92ac-0615e3e31d2c" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/632097ce-53cf-4173-877c-420eed6e7d4d" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/5162389f-e840-454b-be04-fc39d3089fe7" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/6903b3c9-c8af-4d7a-8a46-b77544ded261" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/be7953a8-154d-4aa5-baf0-37ca80a605d6" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/63074a60-3a76-4334-a4fc-45c8f4f763b5" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/713ec23c-d1e2-4ed5-aa2a-37899fddc173" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/827d213b-ffd5-4b7d-a50c-394ba1158010" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/91365786-d33d-48ab-9d1d-274e87d45845" width="20%" />
+  <img src="https://github.com/pcaldi/login-app/assets/114869399/fd52be26-36e5-4010-8079-baa2e4a9ef3f" width="20%" />
+</div>
+
+---
 # 🚀 Funcionalidades
 - Tela de login com campos de entrada para nome de usuário e senha.
 - Validação dos campos de entrada para garantir que sejam preenchidos corretamente.
