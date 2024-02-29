@@ -1,5 +1,4 @@
 //useState - Armazenar estados
-// useEffect - Criar efeito colateral em componentes funcionais
 import { useCallback, useState } from "react";
 
 // Incluir os componentes utilizado para estruturar o conteúdo
@@ -126,6 +125,7 @@ export function EditProfile() {
       setLoading(false);
     }
   }
+
   useFocusEffect(
     useCallback(() => {
       getUser()
