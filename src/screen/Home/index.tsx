@@ -32,6 +32,10 @@ export function Home() {
 
   // Armazenar informações nos estados/State
   const [countUser, setCountUser] = useState([]);
+  const [activeCountUser, setActiveCountUser] = useState([]);
+  const [inactiveCountUser, setInactiveCountUser] = useState([]);
+  const [waitingCountUser, setWaitingCountUser] = useState([]);
+  const [spamCountUser, setSpamCountUser] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // Recuperar a função signOut do context
@@ -81,6 +85,50 @@ export function Home() {
         // Alterar para false e ocultar loading
         setLoading(false);
       })
+  };
+
+  const getStatus = async () => {
+    // Alterar para TRUE e apresentar o loading
+    setLoading(true);
+
+    // Recuperar o token
+    const token = await AsyncStorage.getItem('@token')
+    //console.log(token);
+
+    await api.get("/quantity-status",
+      {
+        'headers': {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    )
+      .then((response) => { // Acesso o then quando a API retornar o status de sucesso
+
+        //console.log(response.data);
+
+        setActiveCountUser(response.data.activeUsersCount);
+        setInactiveCountUser(response.data.inactiveUsersCount);
+        setWaitingCountUser(response.data.waitingUsersCount);
+        setSpamCountUser(response.data.spamUsersCount);
+
+      })
+      .catch((err) => { // Acesso o then quando a API retornar o status de erro
+
+        if (err.response) {
+          // Feedback visual ao usuário
+
+          Alert.alert("Ops", err.response.data.message.toString())
+
+        } else {
+          // Feedback visual ao usuário
+          Alert.alert("Ops", "Tente novamente mais tarde")
+        }
+
+      })
+      .finally(() => {
+        // Alterar para false e ocultar loading
+        setLoading(false);
+      })
   }
 
 
@@ -90,6 +138,7 @@ export function Home() {
   useFocusEffect(
     useCallback(() => {
       getQuantity()
+      getStatus()
     }, [])
   )
 
@@ -105,6 +154,36 @@ export function Home() {
             <Text style={styles.title}>{countUser} Usuários</Text>
           </View>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.content} onPress={() => { }}>
+          <View style={styles.contentView}>
+            <MaterialCommunityIcons name='account-check' color={'#f5f5f5'} size={30} />
+            <Text style={styles.title}>{activeCountUser} Ativos</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.content} onPress={() => { }}>
+          <View style={styles.contentView}>
+            <MaterialCommunityIcons name='account-alert' color={'#f5f5f5'} size={30} />
+            <Text style={styles.title}>{inactiveCountUser} Inativos</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.content} onPress={() => { }}>
+          <View style={styles.contentView}>
+            <MaterialCommunityIcons name='account-clock' color={'#f5f5f5'} size={30} />
+            <Text style={styles.title}>{waitingCountUser} Aguardando Confirmação</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.content} onPress={() => { }}>
+          <View style={styles.contentView}>
+            <MaterialCommunityIcons name='account-cancel' color={'#f5f5f5'} size={30} />
+            <Text style={styles.title}>{spamCountUser} Spam</Text>
+          </View>
+        </TouchableOpacity>
+
+
 
 
       </ScrollView>
